@@ -23,22 +23,19 @@ else:
         server_info = db.command("ismaster")
 
         print("Conexão com o MongoDB Atlas estabelecida com sucesso!")
-        product = {"product": "computer", "amount": 77}
-
-        insert_result = collection.insert_one(product)
-
-        inserted_id = insert_result.inserted_id
-
-        print(f"Documento inserido com sucesso! ID: {inserted_id}")
-
-        inserted_product = collection.find_one({"_id": inserted_id})
-
-        print("\nDocumento encontrado no banco de dados:")
-        print(inserted_product)
+        # insert
+        # product = {"product": "computer", "amount": 77}
+        # insert_result = collection.insert_one(product)
+        # inserted_id = insert_result.inserted_id
+        # print(f"Documento inserido com sucesso! ID: {inserted_id}")
+        #vinserted_product = collection.find_one({"_id": inserted_id})
+        #print("\nDocumento encontrado no banco de dados:")
+        # print(inserted_product)
 
         response = requests.get("https://labdados.com/produtos")
         if response.status_code == 200:
             response_json = response.json()
+            docs = collection.insert_many(response.json())
             
     except Exception as e:
         print(f"Erro ao conectar ao MongoDB Atlas: {e}")
