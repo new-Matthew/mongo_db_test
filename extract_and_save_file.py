@@ -1,4 +1,5 @@
 import os
+import requests
 from dotenv import load_dotenv
 from pymongo import MongoClient
 
@@ -23,21 +24,26 @@ else:
 
         print("Conexão com o MongoDB Atlas estabelecida com sucesso!")
         product = {"product": "computer", "amount": 77}
-        # 1. Armazena o resultado da inserção em uma variável
+
         insert_result = collection.insert_one(product)
 
-        # 2. Usa a variável para acessar a ID do documento inserido
         inserted_id = insert_result.inserted_id
 
         print(f"Documento inserido com sucesso! ID: {inserted_id}")
 
-        # 3. Usa a ID correta para buscar o documento
         inserted_product = collection.find_one({"_id": inserted_id})
 
         print("\nDocumento encontrado no banco de dados:")
         print(inserted_product)
+
+        response = requests.get("https://labdados.com/produtos")
+        if response.status_code == 200:
+            response_json = response.json()
+            
     except Exception as e:
         print(f"Erro ao conectar ao MongoDB Atlas: {e}")
 
     finally:
         client.close()
+
+
