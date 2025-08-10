@@ -6,6 +6,7 @@ pyexe
 
 # Ignora pastas de cache do Python
 __pycache__/
+_____tmp.py
 
 # Ignora arquivos de log
 *.log
