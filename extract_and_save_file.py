@@ -31,11 +31,13 @@ else:
         #vinserted_product = collection.find_one({"_id": inserted_id})
         #print("\nDocumento encontrado no banco de dados:")
         # print(inserted_product)
+        find_by_id = collection.find_one()["_id"]
+        remove_product = collection.delete_one({"_id": find_by_id})
 
         response = requests.get("https://labdados.com/produtos")
         if response.status_code == 200:
             response_json = response.json()
-            docs = collection.insert_many(response.json())
+            # adiciona denovo? docs = collection.insert_many(response.json())
             
     except Exception as e:
         print(f"Erro ao conectar ao MongoDB Atlas: {e}")
